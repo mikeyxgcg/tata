@@ -81,7 +81,24 @@ if (message.content === '!spam') {
       }
 });
 
+client.on('message', message => {
+  var args = message.content.toLowerCase().split(' ');
+    var command = args[0];
+    var prefix = '-';
+    var wordsSay = message.content.split(' ').slice(1).join(' ');
+    
+    if(command == prefix + 'say') {
 
+        if(!wordsSay) return message.channel.send(`**Ex:** ${prefix}say Hello Im Bot`);
+        
+        message.delete();
+        let sayE = new Discord.RichEmbed() 
+        .setColor('RANDOM')
+        .setDescription(`**${wordsSay}**`)   
+        
+        message.channel.send(sayE);
+    }
+});
 
 
 client.login(process.env.TOKEN);// لا تغير فيها شيء
