@@ -82,24 +82,23 @@ if (message.content === '!spam') {
 });
 
 client.on('message', message => {
-  var args = message.content.toLowerCase().split(' ');
-    var command = args[0];
-    var prefix = '-';
-    var wordsSay = message.content.split(' ').slice(1).join(' ');
-    
-    if(command == prefix + 'say') {
+   var Prefix = "-"
+  if (message.author.bot) return;
+  if (!message.content.startsWith(prefix)) return;
 
-        if(!wordsSay) return message.channel.send(`**Ex:** ${prefix}say Hello Im Bot`);
-        
-        message.delete();
-        let sayE = new Discord.RichEmbed() 
-        .setColor('RANDOM')
-        .setDescription(`**${wordsSay}**`)   
-        
-        message.channel.send(sayE);
-    }
+  let command = message.content.split(" ")[0];
+  command = command.slice(prefix.length);
+
+  let args = message.content.split(" ").slice(1);
+
+
+  if (command === "say") { /// اكتب البرفيكس ثم الامر
+          message.delete()
+    message.channel.sendMessage(args.join(" ")).catch(console.error);
+  }
+
+
 });
-
 
 client.login(process.env.TOKEN);// لا تغير فيها شيء
 client2.login(process.env.TOKEN2);// لا تغير فيها شيء
